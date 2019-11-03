@@ -1,6 +1,7 @@
 package com.morozov.rjd.ui.fragments.contacts
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,12 @@ import android.widget.ArrayAdapter
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.morozov.rjd.R
+import com.morozov.rjd.mvp.models.ContactModel
 import com.morozov.rjd.mvp.presenters.MainPresenter
 import com.morozov.rjd.mvp.presenters.contacts.ContactsPresenter
 import com.morozov.rjd.mvp.views.contacts.ContactsView
+import com.morozov.rjd.ui.adapters.contacts.ContactsAdapter
+import com.morozov.rjd.ui.adapters.listeners.OnItemClickListener
 import kotlinx.android.synthetic.main.fragment_contacts_list.*
 
 class ContactsFragment: MvpAppCompatFragment(), ContactsView {
@@ -24,6 +28,8 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
     @InjectPresenter
     lateinit var mPresenter: ContactsPresenter
     lateinit var mActivityPresenter: MainPresenter
+
+    lateinit var adapter: ContactsAdapter
 
     private val spinnerStr = listOf("Все", "Друзья", "Коллеги")
 
@@ -62,8 +68,22 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
         }
 
         buttonAdd.setOnClickListener {
-            mPresenter.buttonAddCliced()
+            mPresenter.buttonAddClicked()
         }
+
+        adapter = ContactsAdapter(object : OnItemClickListener {
+            override fun onItemClick(view: View, position: Int) {
+
+            }
+        })
+        recyclerContacts.adapter = adapter
+        recyclerContacts.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        mPresenter.loadData()
     }
 
     /*
@@ -102,5 +122,10 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
 
         buttonFriend.visibility = View.GONE
         buttonColleague.visibility = View.GONE
+    }
+
+    override fun showContacts(data: List<ContactModel>) {
+        adapter.setData(data)
+        adapter.notifyDataSetChanged()
     }
 }
