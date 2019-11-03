@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+    <RelativeLayout
+            android:id="@+id/relativeHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                style="@style/Widget.MaterialComponents.CardView">
+
+            <ImageView
+                    android:id="@+id/imageCard"
+                    style="@style/ContactPhotoStyle"
+                    android:src="@color/colorPrimary"/>
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/activity_short_vertical_margin"
+                android:layout_toEndOf="@+id/cardView"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <EditText
+                    android:enabled="false"
+                    android:hint="Имя"
+                    style="@style/EditTextStyle"
+                    android:id="@+id/editName"/>
+            <EditText
+                    android:enabled="false"
+                    android:hint="Фамилия"
+                    style="@style/EditTextStyle"
+                    android:id="@+id/editFamily"/>
+            <EditText
+                    android:enabled="false"
+                    android:hint="Отчество"
+                    style="@style/EditTextStyle"
+                    android:id="@+id/editSurname"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_below="@+id/relativeHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/linearPhone">
+        <TextView
+                android:text="Тел. :"
+                style="@style/TextView.Secondary"/>
+
+        <EditText
+                android:layout_marginStart="@dimen/activity_short_horizontal_margin"
+                android:enabled="false"
+                android:hint="Телефон"
+                style="@style/EditTextStyle"
+                android:id="@+id/editPhone"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_below="@+id/linearPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/linearBirthday">
+        <TextView
+                android:text="День рожд. :"
+                style="@style/TextView.Secondary"/>
+
+        <EditText
+                android:layout_marginStart="@dimen/activity_short_horizontal_margin"
+                android:enabled="false"
+                android:hint="День Рождения"
+                style="@style/EditTextStyle"
+                android:id="@+id/editBirthday"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_below="@+id/linearBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/linearPosition" android:visibility="gone">
+        <TextView
+                android:text="Должность. :"
+                style="@style/TextView.Secondary"/>
+
+        <EditText
+                android:layout_marginStart="@dimen/activity_short_horizontal_margin"
+                android:enabled="false"
+                android:hint="Должность"
+                style="@style/EditTextStyle"
+                android:id="@+id/editPosition"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_below="@+id/linearPosition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/linearWorkPhone" android:visibility="gone">
+        <TextView
+                android:text="Рабочий тел. :"
+                style="@style/TextView.Secondary"/>
+
+        <EditText
+                android:layout_marginStart="@dimen/activity_short_horizontal_margin"
+                android:enabled="false"
+                android:hint="Рабочий телефон"
+                style="@style/EditTextStyle"
+                android:id="@+id/editWorkPhone"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <Button
+                style="@style/FABStyle"
+                android:layout_width="@dimen/small_icon_size"
+                android:layout_height="@dimen/small_icon_size"
+                android:background="@drawable/ic_cross"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:id="@+id/buttonCross"/>
+
+        <TextView
+                android:layout_toEndOf="@+id/buttonCross"
+                android:layout_toStartOf="@+id/buttonCheck"
+                android:id="@+id/textHeader"
+                android:gravity="center"
+                android:text="Изменение контакта"
+                style="@style/TextView.Primary.Header"/>
+
+        <Button
+                style="@style/FABStyle"
+                android:layout_width="@dimen/small_icon_size"
+                android:layout_height="@dimen/small_icon_size"
+                android:background="@drawable/ic_check"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:id="@+id/buttonCheck"/>
+
+        <android.support.v7.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textHeader"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                style="@style/Widget.MaterialComponents.CardView">
+
+            <ImageView
+                    android:id="@+id/imageCard"
+                    style="@style/ContactPhotoStyle"
+                    android:layout_width="@dimen/contact_photo_big_size"
+                    android:layout_height="@dimen/contact_photo_big_size"
+                    android:src="@color/colorPrimary"/>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+                android:id="@+id/textAddPhoto"
+                android:layout_marginTop="@dimen/activity_short_vertical_margin"
+                android:layout_centerHorizontal="true"
+                android:text="Добавить фото"
+                android:layout_below="@+id/cardView"
+                style="@style/TextView.Secondary"/>
+
+        <View
+                android:id="@+id/viewSeparator"
+                android:layout_below="@+id/textAddPhoto"
+                android:layout_marginTop="@dimen/activity_short_vertical_margin"
+                android:background="@color/grey_color"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+
+        <LinearLayout
+                android:layout_below="@+id/viewSeparator"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/activity_short_vertical_margin"
+                android:layout_marginEnd="@dimen/activity_short_vertical_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <EditText
+                    android:hint="Имя"
+                    style="@style/EditTextStyle"
+                    android:textColorHint="@color/grey_color"
+                    android:id="@+id/editName"/>
+            <EditText
+                    android:hint="Фамилия"
+                    style="@style/EditTextStyle"
+                    android:textColorHint="@color/grey_color"
+                    android:id="@+id/editFamily"/>
+            <EditText
+                    android:hint="Отчество"
+                    style="@style/EditTextStyle"
+                    android:textColorHint="@color/grey_color"
+                    android:id="@+id/editSurname"/>
+            <EditText
+                    android:hint="Телефон"
+                    style="@style/EditTextStyle"
+                    android:inputType="phone"
+                    android:textColorHint="@color/grey_color"
+                    android:id="@+id/editPhone"/>
+
+            <EditText
+                    android:hint="Должность"
+                    style="@style/EditTextStyle"
+                    android:textColorHint="@color/grey_color"
+                    android:id="@+id/editPosition"/>
+            <EditText
+                    android:hint="Рабочий тел."
+                    style="@style/EditTextStyle"
+                    android:inputType="phone"
+                    android:textColorHint="@color/grey_color"
+                    android:id="@+id/editWorkPhone"/>
+
+            <RelativeLayout
+                    android:layout_gravity="center"
+                    android:id="@+id/relativeDayMonthYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/textDayMonthYear"
+                        android:text="ДД.ММ.ГГГГ"
+                        android:textStyle="bold"
+                        style="@style/TextView.Secondary"
+                        android:textColor="@color/secondary_text"
+                        android:layout_marginEnd="8dp"/>
+
+                <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/textDayMonthYear"
+                        android:src="@drawable/ic_calendar"
+                        android:layout_width="@dimen/small_icon_size"
+                        android:layout_height="@dimen/small_icon_size"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

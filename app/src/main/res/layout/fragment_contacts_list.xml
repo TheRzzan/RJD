@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:id="@+id/spinner"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerContacts"
+            android:layout_below="@+id/spinner"
+            style="@style/RecyclerViewStyle"/>
+
+    <Button
+            style="@style/FABStyle"
+            android:background="@drawable/fab_add"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:id="@+id/buttonAdd"/>
+
+    <Button
+            style="@style/FABStyle"
+            android:background="@drawable/fab_round"
+            android:text="Др"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/buttonAdd"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:id="@+id/buttonFriend"/>
+
+    <Button
+            style="@style/FABStyle"
+            android:background="@drawable/fab_round"
+            android:text="К"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/buttonFriend"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:id="@+id/buttonColleague"/>
+</RelativeLayout>
