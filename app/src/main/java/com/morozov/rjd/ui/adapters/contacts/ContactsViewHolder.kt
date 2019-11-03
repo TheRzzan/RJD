@@ -10,24 +10,39 @@ import android.view.View
 import com.morozov.rjd.R
 import com.morozov.rjd.mvp.models.ContactModel
 import com.morozov.rjd.ui.adapters.listeners.OnItemClickListener
+import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.Observables
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.item_recycler.view.*
 import java.text.SimpleDateFormat
 
 class ContactsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi", "CheckResult")
     fun populate(contactModel: ContactModel, position: Int, listener: OnItemClickListener) {
         itemView.setOnClickListener {
             listener.onItemClick(itemView, position)
         }
 
         if (contactModel.photo != null) {
-            val imageUri = contactModel.photo
-            val imageStream = itemView.context.contentResolver?.openInputStream(imageUri)
-            val selectedImage = BitmapFactory.decodeStream(imageStream)
-            itemView.imageCard.setImageBitmap(Bitmap.createScaledBitmap(selectedImage, 90, 90, false))
+            Observable.fromCallable {
+                val imageUri = contactModel.photo
+                val imageStream = itemView.context.contentResolver?.openInputStream(imageUri)
+                val selectedImage = BitmapFactory.decodeStream(imageStream)
+                imageStream?.close()
+                return@fromCallable Bitmap.createScaledBitmap(selectedImage, 90, 90, false)
+            }.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribeBy(
+                    onNext = { itemView.imageCard.setImageBitmap(it) },
+                    onError =  { it.printStackTrace() },
+                    onComplete = { println("Done!") }
+                )
+
             itemView.textLetter.visibility = View.GONE
-            imageStream?.close()
         } else {
             itemView.imageCard.setImageBitmap(null)
             itemView.imageCard.setImageDrawable(ColorDrawable(itemView.context.resources.getColor(R.color.colorPrimary)))
