@@ -69,7 +69,7 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
         super.onViewCreated(view, savedInstanceState)
 
         cardView.setOnClickListener {
-            val photoPickerIntent = Intent(Intent.ACTION_PICK)
+            val photoPickerIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             photoPickerIntent.type = "image/*"
             startActivityForResult(photoPickerIntent, 0)
         }
@@ -218,6 +218,8 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
     }
 
     override fun showContact(contactModel: ContactModel) {
+        mContactModel.photo = contactModel.photo
+
         if (contactModel.photo != null) {
             val imageUri = contactModel.photo
             val imageStream = activity?.contentResolver?.openInputStream(imageUri)

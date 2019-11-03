@@ -16,7 +16,7 @@ class DefaultApplication: Application() {
 
         dataComponent = DaggerDataComponent
                         .builder()
-                        .dataModule(DataModule())
+                        .dataModule(DataModule(applicationContext))
                         .build()
     }
 }
