@@ -47,6 +47,9 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
         animRotRight.fillAfter = true
         animRotRight.isFillEnabled = true
 
+        buttonFriend.visibility = View.VISIBLE
+        buttonColleague.visibility = View.VISIBLE
+
         buttonFriend.startAnimation(scaleUp)
         buttonColleague.startAnimation(scaleUp)
         buttonAdd.startAnimation(animRotRight)
@@ -64,5 +67,8 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
         buttonFriend.startAnimation(scaleDown)
         buttonColleague.startAnimation(scaleDown)
         buttonAdd.startAnimation(animRotLeft)
+
+        buttonFriend.visibility = View.GONE
+        buttonColleague.visibility = View.GONE
     }
 }

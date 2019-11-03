@@ -35,6 +35,7 @@
             android:layout_above="@+id/buttonAdd"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone"
             android:id="@+id/buttonFriend"/>
 
     <Button
@@ -45,5 +46,6 @@
             android:layout_above="@+id/buttonFriend"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone"
             android:id="@+id/buttonColleague"/>
 </RelativeLayout>
