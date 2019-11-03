@@ -4,6 +4,8 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.morozov.rjd.DefaultApplication
 import com.morozov.rjd.domain.interfaces.ContactsLoader
+import com.morozov.rjd.domain.interfaces.ContactsSaver
+import com.morozov.rjd.mvp.models.ContactModel
 import com.morozov.rjd.mvp.views.editor.EditorView
 import javax.inject.Inject
 
@@ -12,6 +14,9 @@ class EditorPresenter: MvpPresenter<EditorView>() {
 
     @Inject
     lateinit var contactsLoader: ContactsLoader
+
+    @Inject
+    lateinit var contactsSaver: ContactsSaver
 
     init {
         DefaultApplication.dataComponent.inject(this)
@@ -26,5 +31,13 @@ class EditorPresenter: MvpPresenter<EditorView>() {
             viewState.prepareForColleague()
 
         viewState.showContact(contact)
+    }
+
+    fun saveNew(contactModel: ContactModel) {
+        contactsSaver.saveNew(contactModel)
+    }
+
+    fun overwriteOld(contactModel: ContactModel, pos: Int) {
+        contactsSaver.overwriteOld(contactModel, pos)
     }
 }

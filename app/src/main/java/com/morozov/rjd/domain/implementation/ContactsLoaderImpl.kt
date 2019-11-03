@@ -1,10 +1,11 @@
 package com.morozov.rjd.domain.implementation
 
 import com.morozov.rjd.domain.interfaces.ContactsLoader
+import com.morozov.rjd.domain.interfaces.ContactsSaver
 import com.morozov.rjd.mvp.models.ContactModel
 import java.util.*
 
-class ContactsLoaderImpl: ContactsLoader {
+class ContactsLoaderImpl: ContactsLoader, ContactsSaver {
 
     companion object {
         var data = mutableListOf<ContactModel>()
@@ -45,4 +46,13 @@ class ContactsLoaderImpl: ContactsLoader {
             data[pos]
         else
             null
+
+    override fun saveNew(contact: ContactModel) {
+        data.add(contact)
+    }
+
+    override fun overwriteOld(contact: ContactModel, pos: Int) {
+        data.removeAt(pos)
+        data.add(pos, contact)
+    }
 }
