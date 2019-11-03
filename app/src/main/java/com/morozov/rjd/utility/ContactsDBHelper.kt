@@ -11,10 +11,10 @@ import java.text.SimpleDateFormat
 class ContactsDBHelper(context: Context): SQLiteOpenHelper(context, TABLE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        const val DATABASE_NAME = "contacts_v6.db"
-        private const val DATABASE_VERSION = 3
+        const val DATABASE_NAME = "contacts_v10.db"
+        private const val DATABASE_VERSION = 7
 
-        const val TABLE_NAME = "contacts_v6"
+        const val TABLE_NAME = "contacts_v10"
 
         const val _ID = "_ID"
         const val COLUMN_NAME = "column_name"
@@ -106,6 +106,12 @@ class ContactsDBHelper(context: Context): SQLiteOpenHelper(context, TABLE_NAME, 
         val db = writableDatabase
         val whereArgs = arrayOf((id + 1).toString())
         db.delete(TABLE_NAME, "_ID=?", whereArgs)
+    }
+
+    fun removeItemWithPhone(phone: String) {
+        val db = writableDatabase
+        val whereArgs = arrayOf(phone)
+        db.delete(TABLE_NAME, "$COLUMN_PHONE_NUM=?", whereArgs)
     }
 
     fun addContact(contact: ContactModel): Long {

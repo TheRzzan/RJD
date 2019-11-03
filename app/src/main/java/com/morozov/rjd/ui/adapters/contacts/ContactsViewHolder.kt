@@ -33,7 +33,7 @@ class ContactsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
                 val imageStream = itemView.context.contentResolver?.openInputStream(imageUri)
                 val selectedImage = BitmapFactory.decodeStream(imageStream)
                 imageStream?.close()
-                return@fromCallable Bitmap.createScaledBitmap(selectedImage, 90, 90, false)
+                return@fromCallable Bitmap.createScaledBitmap(selectedImage, 180, 180, false)
             }.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribeBy(

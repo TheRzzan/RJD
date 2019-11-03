@@ -3,7 +3,9 @@ package com.morozov.rjd.mvp.presenters.contacts
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.morozov.rjd.DefaultApplication
+import com.morozov.rjd.domain.interfaces.ContactsDeleter
 import com.morozov.rjd.domain.interfaces.ContactsLoader
+import com.morozov.rjd.domain.interfaces.ContactsSaver
 import com.morozov.rjd.mvp.models.ContactModel
 import com.morozov.rjd.mvp.views.contacts.ContactsView
 import javax.inject.Inject
@@ -14,9 +16,17 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
     @Inject
     lateinit var contactsLoader: ContactsLoader
 
+    @Inject
+    lateinit var contactsSaver: ContactsSaver
+
+    @Inject
+    lateinit var contactsDeleter: ContactsDeleter
+
     private var clicked = false
 
     private var isFriend: Boolean? = null
+
+    lateinit var tmpContactsList: MutableList<ContactModel>
 
     init {
         DefaultApplication.dataComponent.inject(this)
@@ -32,11 +42,22 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
         }
     }
 
+    fun deleteThink(contactModel: ContactModel, pos: Int): ContactModel? {
+        contactsDeleter.deleteThink(contactModel, pos)
+        tmpContactsList.removeAt(pos)
+        return contactModel
+    }
+
+    fun addThink(index: Int, contactModel: ContactModel) {
+        contactsSaver.saveNew(contactModel)
+        tmpContactsList.add(index, contactModel)
+    }
+
     fun loadData(b: Boolean? = null) {
         isFriend = b
 
         val contacts = contactsLoader.loadContacts()
-
+        tmpContactsList = contacts.toMutableList()
         when (b) {
             true -> {
                 val tmpList = mutableListOf<ContactModel>()
@@ -45,8 +66,8 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
                     if (item.isFriend)
                         tmpList.add(item)
                 }
-
-                viewState.showContacts(tmpList)
+                tmpContactsList = tmpList
+                viewState.showContacts(tmpContactsList)
             }
             false -> {
                 val tmpList = mutableListOf<ContactModel>()
@@ -56,9 +77,10 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
                         tmpList.add(item)
                 }
 
-                viewState.showContacts(tmpList)
+                tmpContactsList = tmpList
+                viewState.showContacts(tmpContactsList)
             }
-            else -> viewState.showContacts(contacts)
+            else -> viewState.showContacts(tmpContactsList)
         }
     }
 

@@ -224,7 +224,7 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
             val imageUri = contactModel.photo
             val imageStream = activity?.contentResolver?.openInputStream(imageUri)
             val selectedImage = BitmapFactory.decodeStream(imageStream)
-            imageCard.setImageBitmap(Bitmap.createScaledBitmap(selectedImage, 160, 160, false))
+            imageCard.setImageBitmap(Bitmap.createScaledBitmap(selectedImage, 260, 260, false))
             textLetter.visibility = View.GONE
             imageStream?.close()
         }

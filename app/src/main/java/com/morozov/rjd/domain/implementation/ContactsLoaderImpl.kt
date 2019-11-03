@@ -1,12 +1,13 @@
 package com.morozov.rjd.domain.implementation
 
 import android.content.Context
+import com.morozov.rjd.domain.interfaces.ContactsDeleter
 import com.morozov.rjd.domain.interfaces.ContactsLoader
 import com.morozov.rjd.domain.interfaces.ContactsSaver
 import com.morozov.rjd.mvp.models.ContactModel
 import com.morozov.rjd.utility.ContactsDBHelper
 
-class ContactsLoaderImpl(private val context: Context): ContactsLoader, ContactsSaver {
+class ContactsLoaderImpl(private val context: Context): ContactsLoader, ContactsSaver, ContactsDeleter {
 
     companion object {
         var data = mutableListOf<ContactModel>()
@@ -26,7 +27,7 @@ class ContactsLoaderImpl(private val context: Context): ContactsLoader, Contacts
         }
     }
 
-    override fun loadContacts(): List<ContactModel> {
+    override fun loadContacts(): MutableList<ContactModel> {
         return data
     }
 
@@ -46,7 +47,13 @@ class ContactsLoaderImpl(private val context: Context): ContactsLoader, Contacts
         data.removeAt(pos)
         data.add(pos, contact)
         val dbHelper = ContactsDBHelper(context)
-        dbHelper.removeItemWithId(pos)
+        dbHelper.removeItemWithPhone(contact.phoneNum)
         dbHelper.addContact(contact)
+    }
+
+    override fun deleteThink(contact: ContactModel, pos: Int) {
+        val dbHelper = ContactsDBHelper(context)
+        dbHelper.removeItemWithPhone(contact.phoneNum)
+        data.removeAt(pos)
     }
 }

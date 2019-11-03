@@ -2,6 +2,7 @@ package com.morozov.rjd.ui.fragments.contacts
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.morozov.rjd.mvp.views.contacts.ContactsView
 import com.morozov.rjd.ui.adapters.contacts.ContactsAdapter
 import com.morozov.rjd.ui.adapters.listeners.OnItemClickListener
 import com.morozov.rjd.utility.AppConstants
+import com.morozov.rjd.utility.ItemTouchHelperClass
 import kotlinx.android.synthetic.main.fragment_contacts_list.*
 
 class ContactsFragment: MvpAppCompatFragment(), ContactsView {
@@ -31,6 +33,7 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
     lateinit var mActivityPresenter: MainPresenter
 
     lateinit var adapter: ContactsAdapter
+    lateinit var itemTouchHelper: ItemTouchHelper
 
     private val spinnerStr = listOf("Все", "Друзья", "Коллеги")
 
@@ -84,9 +87,13 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
             override fun onItemClick(view: View, position: Int) {
                 mActivityPresenter.showEditor(mPresenter.getGeneralPosition(position))
             }
-        })
+        }, mPresenter, relativeContacts)
         recyclerContacts.adapter = adapter
         recyclerContacts.layoutManager = LinearLayoutManager(context)
+
+        val callback = ItemTouchHelperClass(adapter)
+        itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(recyclerContacts)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,6 +4,6 @@ import com.morozov.rjd.mvp.models.ContactModel
 
 interface ContactsLoader {
 
-    fun loadContacts(): List<ContactModel>
+    fun loadContacts(): MutableList<ContactModel>
     fun loadContact(pos: Int): ContactModel?
 }
