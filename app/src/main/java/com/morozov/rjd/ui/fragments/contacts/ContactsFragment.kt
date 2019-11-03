@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.morozov.rjd.R
@@ -23,11 +25,41 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
     lateinit var mPresenter: ContactsPresenter
     lateinit var mActivityPresenter: MainPresenter
 
+    private val spinnerStr = listOf("Все", "Друзья", "Коллеги")
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_contacts_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val adapter1 = ArrayAdapter<String>(activity, R.layout.custom_spinner_item)
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter1.clear()
+        adapter1.addAll(spinnerStr)
+
+        spinner.adapter = adapter1
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when (position) {
+                    0 -> {
+
+                    }
+
+                    1 -> {
+
+                    }
+
+                    2 -> {
+
+                    }
+                }
+            }
+        }
 
         buttonAdd.setOnClickListener {
             mPresenter.buttonAddCliced()
