@@ -16,6 +16,8 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
 
     private var clicked = false
 
+    private var isFriend: Boolean? = null
+
     init {
         DefaultApplication.dataComponent.inject(this)
     }
@@ -31,6 +33,8 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
     }
 
     fun loadData(b: Boolean? = null) {
+        isFriend = b
+
         val contacts = contactsLoader.loadContacts()
 
         when (b) {
@@ -55,6 +59,48 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
                 viewState.showContacts(tmpList)
             }
             else -> viewState.showContacts(contacts)
+        }
+    }
+
+    fun getGeneralPosition(pos: Int): Int {
+        return when (isFriend) {
+            true -> {
+                val contacts = contactsLoader.loadContacts()
+
+                var i = -1
+                var j = -1
+                while (j != pos) {
+                    if (contacts[i + 1].isFriend)
+                        j++
+
+                    i++
+
+                    if (i > contacts.size)
+                        return -1
+                }
+
+                return i
+            }
+            false -> {
+                val contacts = contactsLoader.loadContacts()
+
+                var i = -1
+                var j = -1
+                while (j != pos) {
+                    if (!contacts[i + 1].isFriend)
+                        j++
+
+                    i++
+
+                    if (i > contacts.size)
+                        return -1
+                }
+
+                return i
+            }
+            else -> {
+                pos
+            }
         }
     }
 }

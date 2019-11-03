@@ -82,7 +82,7 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
 
         adapter = ContactsAdapter(object : OnItemClickListener {
             override fun onItemClick(view: View, position: Int) {
-                mActivityPresenter.showEditor(position)
+                mActivityPresenter.showEditor(mPresenter.getGeneralPosition(position))
             }
         })
         recyclerContacts.adapter = adapter

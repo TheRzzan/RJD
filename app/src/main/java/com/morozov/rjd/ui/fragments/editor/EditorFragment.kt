@@ -46,7 +46,7 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
                 when (bundle.getString(AppConstants.CONTACT_WHO, AppConstants.ANY_SELECTED)) {
                     AppConstants.FRIEND -> prepareForFriend()
                     AppConstants.COLLEAGUE -> prepareForColleague()
-                    AppConstants.ANY_SELECTED -> activity?.onBackPressed()
+                    AppConstants.ANY_SELECTED -> mActivityPresenter.showContacts()
                 }
             }
             else -> {
