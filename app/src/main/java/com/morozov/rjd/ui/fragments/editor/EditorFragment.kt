@@ -1,25 +1,31 @@
 package com.morozov.rjd.ui.fragments.editor
 
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.arch.lifecycle.MutableLiveData
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.morozov.rjd.R
 import com.morozov.rjd.mvp.models.ContactModel
 import com.morozov.rjd.mvp.presenters.MainPresenter
 import com.morozov.rjd.mvp.presenters.editor.EditorPresenter
 import com.morozov.rjd.mvp.views.editor.EditorView
 import com.morozov.rjd.utility.AppConstants
 import kotlinx.android.synthetic.main.fragment_editor.*
+import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.DatePicker
-import com.morozov.rjd.R
 import java.util.*
 
 
@@ -35,7 +41,7 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
 
     private var isDateSelected = MutableLiveData<Boolean>()
 
-    private val mContactModel = ContactModel("", "", "",
+    private var mContactModel = ContactModel("", "", "",
         "", true, "", "",
         Date()
     )
@@ -61,6 +67,12 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        cardView.setOnClickListener {
+            val photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            startActivityForResult(photoPickerIntent, 0)
+        }
 
         buttonCross.setOnClickListener {
             activity?.onBackPressed()
@@ -206,6 +218,15 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
     }
 
     override fun showContact(contactModel: ContactModel) {
+        if (contactModel.photo != null) {
+            val imageUri = contactModel.photo
+            val imageStream = activity?.contentResolver?.openInputStream(imageUri)
+            val selectedImage = BitmapFactory.decodeStream(imageStream)
+            imageCard.setImageBitmap(Bitmap.createScaledBitmap(selectedImage, 160, 160, false))
+            textLetter.visibility = View.GONE
+            imageStream?.close()
+        }
+
         if (contactModel.name.isNotEmpty())
             textLetter.text = contactModel.name[0].toString()
 
@@ -228,5 +249,26 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
 
     internal abstract inner class OneShotTask : Runnable {
         var str: String = ""
+    }
+
+    override fun onActivityResult(reqCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(reqCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            try {
+                val imageUri = data!!.data
+                val imageStream = activity?.contentResolver?.openInputStream(imageUri)
+                val selectedImage = BitmapFactory.decodeStream(imageStream)
+                imageCard.setImageBitmap(Bitmap.createScaledBitmap(selectedImage, 120, 120, false))
+                verifyIsReadyToSave()
+                mContactModel.photo = imageUri
+                textLetter.visibility = View.GONE
+                imageStream?.close()
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+                Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show()
+            }
+
+        }
     }
 }

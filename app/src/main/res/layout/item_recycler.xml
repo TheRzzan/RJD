@@ -21,7 +21,7 @@
                 app:cardCornerRadius="@dimen/card_corner_radius"
                 style="@style/Widget.MaterialComponents.CardView">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/imageCard"
                     style="@style/ContactPhotoStyle"
                     android:src="@color/colorPrimary"/>
