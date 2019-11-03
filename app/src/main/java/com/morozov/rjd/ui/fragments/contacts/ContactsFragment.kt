@@ -53,15 +53,15 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-
+                        mPresenter.loadData()
                     }
 
                     1 -> {
-
+                        mPresenter.loadData(true)
                     }
 
                     2 -> {
-
+                        mPresenter.loadData(false)
                     }
                 }
             }

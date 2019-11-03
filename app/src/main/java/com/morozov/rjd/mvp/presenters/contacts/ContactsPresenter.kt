@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.morozov.rjd.DefaultApplication
 import com.morozov.rjd.domain.interfaces.ContactsLoader
+import com.morozov.rjd.mvp.models.ContactModel
 import com.morozov.rjd.mvp.views.contacts.ContactsView
 import javax.inject.Inject
 
@@ -29,7 +30,31 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
         }
     }
 
-    fun loadData() {
-        viewState.showContacts(contactsLoader.loadContacts())
+    fun loadData(b: Boolean? = null) {
+        val contacts = contactsLoader.loadContacts()
+
+        when (b) {
+            true -> {
+                val tmpList = mutableListOf<ContactModel>()
+
+                for (item in contacts) {
+                    if (item.isFriend)
+                        tmpList.add(item)
+                }
+
+                viewState.showContacts(tmpList)
+            }
+            false -> {
+                val tmpList = mutableListOf<ContactModel>()
+
+                for (item in contacts) {
+                    if (!item.isFriend)
+                        tmpList.add(item)
+                }
+
+                viewState.showContacts(tmpList)
+            }
+            else -> viewState.showContacts(contacts)
+        }
     }
 }
