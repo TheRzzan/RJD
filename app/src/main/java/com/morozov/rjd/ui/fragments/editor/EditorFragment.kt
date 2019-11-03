@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.morozov.rjd.R
 import com.morozov.rjd.mvp.presenters.MainPresenter
 import com.morozov.rjd.mvp.presenters.editor.EditorPresenter
@@ -16,6 +17,7 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
     * Moxy presenters
     *
     * */
+    @InjectPresenter
     lateinit var mPresenter: EditorPresenter
     lateinit var mActivityPresenter: MainPresenter
 
