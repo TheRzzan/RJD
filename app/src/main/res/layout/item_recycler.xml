@@ -22,6 +22,11 @@
                     android:id="@+id/imageCard"
                     style="@style/ContactPhotoStyle"
                     android:src="@color/colorPrimary"/>
+            <TextView
+                    android:layout_gravity="center"
+                    android:text="A"
+                    android:textColor="@android:color/white"
+                    style="@style/TextView.Primary.Header" android:id="@+id/textLetter"/>
         </android.support.v7.widget.CardView>
 
         <LinearLayout

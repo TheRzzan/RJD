@@ -52,6 +52,13 @@
                     android:layout_width="@dimen/contact_photo_big_size"
                     android:layout_height="@dimen/contact_photo_big_size"
                     android:src="@color/colorPrimary"/>
+
+            <TextView
+                    android:textSize="@dimen/text_super_header_size"
+                    android:layout_gravity="center"
+                    android:text="A"
+                    android:textColor="@android:color/white"
+                    style="@style/TextView.Primary.Header" android:id="@+id/textLetter"/>
         </android.support.v7.widget.CardView>
 
         <TextView
