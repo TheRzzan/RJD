@@ -17,6 +17,7 @@ import com.morozov.rjd.mvp.presenters.contacts.ContactsPresenter
 import com.morozov.rjd.mvp.views.contacts.ContactsView
 import com.morozov.rjd.ui.adapters.contacts.ContactsAdapter
 import com.morozov.rjd.ui.adapters.listeners.OnItemClickListener
+import com.morozov.rjd.utility.AppConstants
 import kotlinx.android.synthetic.main.fragment_contacts_list.*
 
 class ContactsFragment: MvpAppCompatFragment(), ContactsView {
@@ -71,9 +72,17 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
             mPresenter.buttonAddClicked()
         }
 
+        buttonFriend.setOnClickListener {
+            mActivityPresenter.showEditor(AppConstants.FRIEND)
+        }
+
+        buttonColleague.setOnClickListener {
+            mActivityPresenter.showEditor(AppConstants.COLLEAGUE)
+        }
+
         adapter = ContactsAdapter(object : OnItemClickListener {
             override fun onItemClick(view: View, position: Int) {
-
+                mActivityPresenter.showEditor(position)
             }
         })
         recyclerContacts.adapter = adapter

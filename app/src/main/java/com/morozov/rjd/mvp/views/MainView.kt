@@ -8,5 +8,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 interface MainView: MvpView {
 
     fun showContacts()
-    fun showEditor()
+    fun showEditor(position: Int)
+    fun showEditor(string: String)
 }

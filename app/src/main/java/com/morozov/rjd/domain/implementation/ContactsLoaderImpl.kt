@@ -6,27 +6,43 @@ import java.util.*
 
 class ContactsLoaderImpl: ContactsLoader {
 
-    override fun loadContacts(): List<ContactModel> {
-        val c1 = ContactModel("Jeka", "Morozov", "Jurievich",
-            "+79819600697", true, "+124456343", "Gen director",
-            Date()
-        )
-
-        val c2 = ContactModel("Yurii", "Morozov", "Jurievich",
-            "+79819600697", true, "+124456343", "Gen director",
-            Date()
-        )
-
-        val c4 = ContactModel("Ktoto", "Tamov", "Ich",
-            "+79819600697", false, "+124456343", "Gen director",
-            Date()
-        )
-
-        val c3 = ContactModel("Marina", "Morozov", "Jurievich",
-            "+79819600697", true, "+124456343", "Gen director",
-            Date()
-        )
-
-        return listOf(c1, c2, c3, c4)
+    companion object {
+        var data = mutableListOf<ContactModel>()
     }
+
+    init {
+        if (data.isEmpty()) {
+            val c1 = ContactModel("Jeka", "Morozov", "Jurievich",
+                "+79819600697", true, "+124456343", "Gen director",
+                Date()
+            )
+
+            val c2 = ContactModel("Yurii", "Morozov", "Jurievich",
+                "+79819600697", true, "+124456343", "Gen director",
+                Date()
+            )
+
+            val c4 = ContactModel("Ktoto", "Tamov", "Ich",
+                "+79819600697", false, "+124456343", "Gen director",
+                Date()
+            )
+
+            val c3 = ContactModel("Marina", "Morozov", "Jurievich",
+                "+79819600697", true, "+124456343", "Gen director",
+                Date()
+            )
+
+            data = mutableListOf(c1, c2, c3, c4)
+        }
+    }
+
+    override fun loadContacts(): List<ContactModel> {
+        return data
+    }
+
+    override fun loadContact(pos: Int): ContactModel? =
+        if (pos < data.size)
+            data[pos]
+        else
+            null
 }

@@ -11,7 +11,10 @@ class MainPresenter: MvpPresenter<MainView>() {
         viewState.showContacts()
     }
 
-    fun showEditor(){
-        viewState.showEditor()
+    fun showEditor(position: Int) {
+        viewState.showEditor(position)
+    }
+    fun showEditor(string: String) {
+        viewState.showEditor(string)
     }
 }

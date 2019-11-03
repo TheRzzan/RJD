@@ -14,6 +14,7 @@ import com.morozov.rjd.mvp.presenters.MainPresenter
 import com.morozov.rjd.mvp.views.MainView
 import com.morozov.rjd.ui.fragments.contacts.ContactsFragment
 import com.morozov.rjd.ui.fragments.editor.EditorFragment
+import com.morozov.rjd.utility.AppConstants
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -78,9 +79,25 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setFragment(fragment, false)
     }
 
-    override fun showEditor() {
+    override fun showEditor(position: Int) {
         val fragment = EditorFragment()
 
+        val bundle = Bundle()
+        bundle.putInt(AppConstants.CONTACT_POSITION, position)
+
+        fragment.arguments = bundle
+        fragment.mActivityPresenter = mPresenter
+
+        setFragment(fragment, true)
+    }
+
+    override fun showEditor(string: String) {
+        val fragment = EditorFragment()
+
+        val bundle = Bundle()
+        bundle.putString(AppConstants.CONTACT_WHO, string)
+
+        fragment.arguments = bundle
         fragment.mActivityPresenter = mPresenter
 
         setFragment(fragment, true)
