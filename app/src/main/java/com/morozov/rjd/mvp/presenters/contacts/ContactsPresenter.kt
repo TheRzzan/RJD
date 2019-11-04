@@ -42,15 +42,30 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
         }
     }
 
-    fun deleteThink(contactModel: ContactModel, pos: Int): ContactModel? {
+    fun deleteThink(contactModel: ContactModel, pos: Int): MutableList<ContactModel>? {
         contactsDeleter.deleteThink(contactModel, pos)
-        tmpContactsList.removeAt(pos)
-        return contactModel
+        val tmpLst = mutableListOf<ContactModel>()
+        for (item in tmpContactsList) {
+            if (item.phoneNum == contactModel.phoneNum) {
+                tmpLst.add(item)
+            }
+        }
+        for (item in tmpLst) {
+            tmpContactsList.remove(item)
+        }
+        return tmpLst
     }
 
     fun addThink(index: Int, contactModel: ContactModel) {
         contactsSaver.saveNew(contactModel)
         tmpContactsList.add(index, contactModel)
+    }
+
+    fun addAll(data: MutableList<ContactModel>) {
+        for (item in data) {
+            contactsSaver.saveNew(item)
+            tmpContactsList.add(item)
+        }
     }
 
     fun loadData(b: Boolean? = null) {

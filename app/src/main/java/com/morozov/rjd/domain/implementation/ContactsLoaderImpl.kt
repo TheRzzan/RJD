@@ -54,6 +54,14 @@ class ContactsLoaderImpl(private val context: Context): ContactsLoader, Contacts
     override fun deleteThink(contact: ContactModel, pos: Int) {
         val dbHelper = ContactsDBHelper(context)
         dbHelper.removeItemWithPhone(contact.phoneNum)
-        data.removeAt(pos)
+
+        val dataTmp = mutableListOf<ContactModel>()
+
+        for (item in data) {
+            if (item.phoneNum != contact.phoneNum)
+                dataTmp.add(item)
+        }
+
+        data = dataTmp
     }
 }

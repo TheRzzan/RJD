@@ -5,9 +5,9 @@
     <application
             android:largeHeap="true"
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/rjd_icon"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@drawable/rjd_icon"
             android:supportsRtl="true"
             android:name=".DefaultApplication"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">

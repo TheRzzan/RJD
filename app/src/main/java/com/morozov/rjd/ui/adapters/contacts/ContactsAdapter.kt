@@ -14,7 +14,7 @@ import com.morozov.rjd.utility.ItemTouchHelperClass
 class ContactsAdapter(private val listener: OnItemClickListener, private val mPresenter: ContactsPresenter, private val view: View): ListAdapter<ContactModel, ContactsViewHolder>(),
     ItemTouchHelperClass.ItemTouchHelperAdapter{
 
-    lateinit var justDeletedItem: ContactModel
+    lateinit var justDeletedItem: MutableList<ContactModel>
     var indexOfDeletedItem = -1
 
     override fun onCreateViewHolder(container: ViewGroup, p1: Int): ContactsViewHolder =
@@ -41,7 +41,7 @@ class ContactsAdapter(private val listener: OnItemClickListener, private val mPr
 
         Snackbar.make(view, "Удалено", Snackbar.LENGTH_LONG)
             .setAction("Отмена") {
-                mPresenter.addThink(indexOfDeletedItem, justDeletedItem)
+                mPresenter.addAll(justDeletedItem)
                 notifyDataSetChanged()
             }.show()
     }

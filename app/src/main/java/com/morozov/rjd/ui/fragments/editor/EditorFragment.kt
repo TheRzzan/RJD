@@ -52,12 +52,12 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
     * */
     var calendar = Calendar.getInstance()
     val calendarListener = DatePickerDialog.OnDateSetListener{ datePicker: DatePicker, year: Int, month: Int, day: Int ->
-        textDayMonthYear.text = "$day.${month + 1}.$year"
+        textDayMonthYear.text = "$day/${month + 1}/$year"
 
-        val now = Date()
-        now.year = year
-        now.month = month + 1
-        now.date = day
+        val dayMtYrFormat = SimpleDateFormat("dd/MM/yyyy")
+        val now = dayMtYrFormat.parse("$day/${month + 1}/$year")
+
+        mContactModel.birthday = now
 
         isDateSelected.value = true
     }
