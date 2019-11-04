@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+            android:layout_margin="4dp"
+            android:elevation="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/card_corner_radius">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                    android:id="@+id/cardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_long_vertical_margin"
+                    android:layout_marginStart="@dimen/activity_long_horizontal_margin"
+                    android:background="#00000000"
+                    style="@style/Widget.MaterialComponents.CardView">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/imageCard"
+                        style="@style/ContactPhotoStyle"
+                        android:src="@color/colorPrimary"/>
+                <TextView
+                        android:layout_centerInParent="true"
+                        android:text="A"
+                        android:textColor="@android:color/white"
+                        style="@style/TextView.Primary.Header" android:id="@+id/textLetter"/>
+            </RelativeLayout>
+            
+            <TextView
+                    android:id="@+id/textNFS"
+                    android:textStyle="bold"
+                    android:text="Алексей Игоревич Самойлов"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_toEndOf="@+id/cardView"
+                    android:layout_toStartOf="@+id/textIsFriend"
+                    android:layout_alignTop="@+id/cardView"
+                    style="@style/TextView.Secondary"/>
+
+            <LinearLayout
+                    android:id="@+id/linearCardDescr"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/activity_short_vertical_margin"
+                    android:layout_below="@+id/textNFS"
+                    android:layout_alignStart="@+id/textNFS"
+                    android:layout_alignEnd="@+id/textNFS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/textPhoneNumber"
+                        android:layout_marginBottom="@dimen/activity_super_short_vertical_margin"
+                        android:text="+7(921)792-44-24"
+                        android:textSize="@dimen/text_small_secondary_size"
+                        style="@style/TextView.Secondary"/>
+
+                <TextView
+                        android:id="@+id/textBirthday"
+                        android:layout_marginBottom="@dimen/activity_super_short_vertical_margin"
+                        android:text="29.12.1992"
+                        android:textSize="@dimen/text_small_secondary_size"
+                        style="@style/TextView.Secondary"/>
+
+                <TextView
+                        android:id="@+id/textWorkPhone"
+                        android:layout_marginBottom="@dimen/activity_super_short_vertical_margin"
+                        android:visibility="gone"
+                        android:text="+7(921)792-44-24"
+                        android:textSize="@dimen/text_small_secondary_size"
+                        style="@style/TextView.Secondary"/>
+
+                <TextView
+                        android:id="@+id/textPosition"
+                        android:visibility="gone"
+                        android:text="Ген директор"
+                        android:textSize="@dimen/text_small_secondary_size"
+                        style="@style/TextView.Secondary"/>
+            </LinearLayout>
+            
+            <TextView
+                    android:id="@+id/textIsFriend"
+                    android:text="К"
+                    android:layout_marginEnd="@dimen/activity_short_horizontal_margin"
+                    android:layout_marginBottom="@dimen/activity_short_vertical_margin"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_below="@+id/linearCardDescr"
+                    android:layout_alignParentEnd="true"
+                    style="@style/TextView.Secondary"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

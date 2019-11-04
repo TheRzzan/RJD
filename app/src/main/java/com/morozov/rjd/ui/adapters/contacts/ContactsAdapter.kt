@@ -20,7 +20,7 @@ class ContactsAdapter(private val listener: OnItemClickListener, private val mPr
     override fun onCreateViewHolder(container: ViewGroup, p1: Int): ContactsViewHolder =
         ContactsViewHolder(
             LayoutInflater.from(container.context).inflate(
-                R.layout.item_recycler,
+                R.layout.item_card_recycler,
                 container,
                 false
             )
