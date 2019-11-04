@@ -1,5 +1,7 @@
 package com.morozov.rjd.mvp.presenters
 
+import android.view.View
+import android.widget.ImageView
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.morozov.rjd.mvp.views.MainView
@@ -11,8 +13,8 @@ class MainPresenter: MvpPresenter<MainView>() {
         viewState.showContacts()
     }
 
-    fun showEditor(position: Int) {
-        viewState.showEditor(position)
+    fun showEditor(image: ImageView?, position: Int) {
+        viewState.showEditor(image, position)
     }
     fun showEditor(string: String) {
         viewState.showEditor(string)

@@ -48,8 +48,9 @@
                 app:cardCornerRadius="@dimen/card_corner_radius"
                 style="@style/Widget.MaterialComponents.CardView">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/imageCard"
+                    android:transitionName="contactImage"
                     style="@style/ContactPhotoStyle"
                     android:layout_width="@dimen/contact_photo_big_size"
                     android:layout_height="@dimen/contact_photo_big_size"

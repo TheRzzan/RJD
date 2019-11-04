@@ -2,11 +2,14 @@ package com.morozov.rjd.ui.activities
 
 import android.content.Context
 import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.transition.Fade
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.morozov.rjd.R
@@ -15,7 +18,7 @@ import com.morozov.rjd.mvp.views.MainView
 import com.morozov.rjd.ui.fragments.contacts.ContactsFragment
 import com.morozov.rjd.ui.fragments.editor.EditorFragment
 import com.morozov.rjd.utility.AppConstants
-import kotlinx.android.synthetic.main.activity_main.*
+import com.morozov.rjd.utility.DetailsTransition
 import java.util.*
 
 class MainActivity : MvpAppCompatActivity(), MainView {
@@ -79,7 +82,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setFragment(fragment, false)
     }
 
-    override fun showEditor(position: Int) {
+    override fun showEditor(image: ImageView?, position: Int) {
         val fragment = EditorFragment()
 
         val bundle = Bundle()
@@ -88,7 +91,21 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         fragment.arguments = bundle
         fragment.mActivityPresenter = mPresenter
 
-        setFragment(fragment, true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            fragment.sharedElementEnterTransition = DetailsTransition()
+            fragment.enterTransition = Fade()
+            fragment.sharedElementReturnTransition = DetailsTransition()
+        }
+
+        val transaction = supportFragmentManager.beginTransaction()
+
+        if (image != null)
+            transaction.addSharedElement(image, "contactImage")
+
+        transaction.replace(R.id.contentMain, fragment)
+            .addToBackStack(null)
+
+        transaction.commit()
     }
 
     override fun showEditor(string: String) {

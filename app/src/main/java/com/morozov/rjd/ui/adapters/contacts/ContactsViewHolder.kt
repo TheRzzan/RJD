@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.morozov.rjd.R
@@ -23,11 +24,11 @@ class ContactsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     @SuppressLint("RestrictedApi", "CheckResult")
     fun populate(contactModel: ContactModel, position: Int, listener: OnItemClickListener) {
-        itemView.setOnClickListener {
-            listener.onItemClick(itemView, position)
-        }
-
         if (contactModel.photo != null) {
+            itemView.setOnClickListener {
+                listener.onItemClick(itemView.imageCard, position)
+            }
+
             Observable.fromCallable {
                 val imageUri = contactModel.photo
                 val imageStream = itemView.context.contentResolver?.openInputStream(imageUri)
@@ -44,10 +45,16 @@ class ContactsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
             itemView.textLetter.visibility = View.GONE
         } else {
+            itemView.setOnClickListener {
+                listener.onItemClick(null, position)
+            }
+
             itemView.imageCard.setImageBitmap(null)
             itemView.imageCard.setImageDrawable(ColorDrawable(itemView.context.resources.getColor(R.color.colorPrimary)))
             itemView.textLetter.visibility = View.VISIBLE
         }
+
+        ViewCompat.setTransitionName(itemView.imageCard, position.toString() + "contact_image")
 
         if (contactModel.name.isNotEmpty())
             itemView.textLetter.text = contactModel.name[0].toString()

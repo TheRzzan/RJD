@@ -3,12 +3,14 @@ package com.morozov.rjd.ui.fragments.contacts
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.transition.Fade
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.morozov.rjd.R
@@ -21,6 +23,7 @@ import com.morozov.rjd.ui.adapters.listeners.OnItemClickListener
 import com.morozov.rjd.utility.AppConstants
 import com.morozov.rjd.utility.ItemTouchHelperClass
 import kotlinx.android.synthetic.main.fragment_contacts_list.*
+
 
 class ContactsFragment: MvpAppCompatFragment(), ContactsView {
 
@@ -84,12 +87,19 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
         }
 
         adapter = ContactsAdapter(object : OnItemClickListener {
-            override fun onItemClick(view: View, position: Int) {
-                mActivityPresenter.showEditor(mPresenter.getGeneralPosition(position))
+            override fun onItemClick(view: View?, position: Int) {
+                exitTransition = Fade()
+                if (view != null)
+                    mActivityPresenter.showEditor(view as ImageView, mPresenter.getGeneralPosition(position))
+                else
+                    mActivityPresenter.showEditor(null, mPresenter.getGeneralPosition(position))
             }
         }, mPresenter, relativeContacts)
         recyclerContacts.adapter = adapter
-        recyclerContacts.layoutManager = LinearLayoutManager(context)
+        val linearLayoutManager = LinearLayoutManager(context)
+//        linearLayoutManager.reverseLayout = true
+//        linearLayoutManager.stackFromEnd = true
+        recyclerContacts.layoutManager = linearLayoutManager
 
         val callback = ItemTouchHelperClass(adapter)
         itemTouchHelper = ItemTouchHelper(callback)
@@ -141,6 +151,10 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
     }
 
     override fun showContacts(data: List<ContactModel>) {
+        if (data.isEmpty())
+            textEmpty.visibility = View.VISIBLE
+        else
+            textEmpty.visibility = View.GONE
         adapter.setData(data)
         adapter.notifyDataSetChanged()
     }
