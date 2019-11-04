@@ -93,7 +93,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragment.sharedElementEnterTransition = DetailsTransition()
-            fragment.enterTransition = Fade()
             fragment.sharedElementReturnTransition = DetailsTransition()
         }
 

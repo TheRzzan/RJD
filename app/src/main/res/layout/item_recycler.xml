@@ -12,25 +12,26 @@
             android:id="@+id/relativeHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <android.support.v7.widget.CardView
+        <RelativeLayout
                 android:id="@+id/cardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                app:cardCornerRadius="@dimen/card_corner_radius"
+                android:background="#00000000"
                 style="@style/Widget.MaterialComponents.CardView">
 
-            <android.support.v7.widget.AppCompatImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/imageCard"
                     style="@style/ContactPhotoStyle"
                     android:src="@color/colorPrimary"/>
             <TextView
-                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="A"
                     android:textColor="@android:color/white"
                     style="@style/TextView.Primary.Header" android:id="@+id/textLetter"/>
-        </android.support.v7.widget.CardView>
+        </RelativeLayout>
 
         <LinearLayout
                 android:orientation="vertical"

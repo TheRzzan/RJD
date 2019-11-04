@@ -8,53 +8,81 @@
 
     <TextView
             android:layout_centerInParent="true"
-            android:text="Нет записей"
-            android:textColor="@color/grey_color"
-            style="@style/TextView.Primary.Header" android:id="@+id/textEmpty"/>
+            android:text="Вы пока не добавляли контакты"
+            android:textColor="@color/header_text"
+            style="@style/TextView.Primary" android:id="@+id/textEmpty"/>
 
-    <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+    <RelativeLayout
+            android:id="@+id/spinner"
+            android:layout_marginTop="@dimen/activity_long_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_long_vertical_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:id="@+id/spinner"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/textAll"
+                android:text="Все"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                style="@style/TextView.Secondary"/>
+
+        <TextView
+                android:id="@+id/textFriends"
+                android:layout_toEndOf="@+id/textAll"
+                android:layout_marginStart="@dimen/activity_long_horizontal_margin"
+                android:text="Друзья"
+                android:textStyle="bold"
+                style="@style/TextView.Secondary"/>
+
+        <TextView
+                android:id="@+id/textColleagues"
+                android:layout_toEndOf="@+id/textFriends"
+                android:layout_marginStart="@dimen/activity_long_horizontal_margin"
+                android:text="Коллеги"
+                android:textStyle="bold"
+                style="@style/TextView.Secondary"/>
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerContacts"
             android:layout_below="@+id/spinner"
             style="@style/RecyclerViewStyle"/>
 
-    <Button
-            style="@style/FABStyle"
-            android:background="@drawable/fab_add"
+    <RelativeLayout
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:id="@+id/buttonAdd"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+                style="@style/FABStyle"
+                android:layout_width="@dimen/big_icon_size"
+                android:layout_height="@dimen/big_icon_size"
+                android:background="@drawable/fab_add"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/buttonAdd"/>
 
-    <Button
-            style="@style/FABStyle"
-            android:background="@drawable/fab_round"
-            android:text="Др"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/buttonAdd"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:visibility="gone"
-            android:id="@+id/buttonFriend"/>
+        <Button
+                style="@style/FABStyle"
+                android:background="@drawable/fab_round"
+                android:text="Д"
+                android:layout_above="@+id/buttonAdd"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:visibility="gone"
+                android:id="@+id/buttonFriend"/>
 
-    <Button
-            style="@style/FABStyle"
-            android:background="@drawable/fab_round"
-            android:text="К"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/buttonFriend"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:visibility="gone"
-            android:id="@+id/buttonColleague"/>
+        <Button
+                style="@style/FABStyle"
+                android:background="@drawable/fab_round"
+                android:text="К"
+                android:layout_above="@+id/buttonFriend"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:visibility="gone"
+                android:id="@+id/buttonColleague"/>
+    </RelativeLayout>
 </RelativeLayout>

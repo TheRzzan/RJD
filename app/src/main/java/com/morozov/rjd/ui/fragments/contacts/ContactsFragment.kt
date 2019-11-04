@@ -38,40 +38,31 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
     lateinit var adapter: ContactsAdapter
     lateinit var itemTouchHelper: ItemTouchHelper
 
-    private val spinnerStr = listOf("Все", "Друзья", "Коллеги")
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_contacts_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter1 = ArrayAdapter<String>(activity, R.layout.custom_spinner_item)
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        adapter1.clear()
-        adapter1.addAll(spinnerStr)
+        textAll.setOnClickListener {
+            context?.resources?.getColor(R.color.colorPrimary)?.let { it1 -> textAll.setTextColor(it1) }
+            context?.resources?.getColor(R.color.secondary_text)?.let { it1 -> textFriends.setTextColor(it1) }
+            context?.resources?.getColor(R.color.secondary_text)?.let { it1 -> textColleagues.setTextColor(it1) }
+            mPresenter.loadData()
+        }
 
-        spinner.adapter = adapter1
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+        textFriends.setOnClickListener {
+            context?.resources?.getColor(R.color.colorPrimary)?.let { it1 -> textFriends.setTextColor(it1) }
+            context?.resources?.getColor(R.color.secondary_text)?.let { it1 -> textAll.setTextColor(it1) }
+            context?.resources?.getColor(R.color.secondary_text)?.let { it1 -> textColleagues.setTextColor(it1) }
+            mPresenter.loadData(true)
+        }
 
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                when (position) {
-                    0 -> {
-                        mPresenter.loadData()
-                    }
-
-                    1 -> {
-                        mPresenter.loadData(true)
-                    }
-
-                    2 -> {
-                        mPresenter.loadData(false)
-                    }
-                }
-            }
+        textColleagues.setOnClickListener {
+            context?.resources?.getColor(R.color.colorPrimary)?.let { it1 -> textColleagues.setTextColor(it1) }
+            context?.resources?.getColor(R.color.secondary_text)?.let { it1 -> textAll.setTextColor(it1) }
+            context?.resources?.getColor(R.color.secondary_text)?.let { it1 -> textFriends.setTextColor(it1) }
+            mPresenter.loadData(false)
         }
 
         buttonAdd.setOnClickListener {
@@ -88,7 +79,6 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
 
         adapter = ContactsAdapter(object : OnItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
-                exitTransition = Fade()
                 if (view != null)
                     mActivityPresenter.showEditor(view as ImageView, mPresenter.getGeneralPosition(position))
                 else
