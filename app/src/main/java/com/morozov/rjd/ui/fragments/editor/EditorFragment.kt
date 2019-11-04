@@ -228,7 +228,7 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
             val imageUri = contactModel.photo
             val imageStream = activity?.contentResolver?.openInputStream(imageUri)
             val selectedImage = BitmapFactory.decodeStream(imageStream)
-            imageCard.setImageBitmap(Bitmap.createScaledBitmap(selectedImage, 260, 260, false))
+            imageCard.setImageBitmap(Bitmap.createBitmap(selectedImage))
             imageCamera.visibility = View.GONE
             imageStream?.close()
         } else
@@ -263,7 +263,7 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
                 val imageUri = data!!.data
                 val imageStream = activity?.contentResolver?.openInputStream(imageUri)
                 val selectedImage = BitmapFactory.decodeStream(imageStream)
-                imageCard.setImageBitmap(Bitmap.createScaledBitmap(selectedImage, 120, 120, false))
+                imageCard.setImageBitmap(Bitmap.createBitmap(selectedImage))
                 verifyIsReadyToSave()
                 mContactModel.photo = imageUri
                 imageCamera.visibility = View.GONE
