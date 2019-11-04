@@ -22,7 +22,7 @@ class ContactsPresenter: MvpPresenter<ContactsView>() {
     @Inject
     lateinit var contactsDeleter: ContactsDeleter
 
-    private var clicked = false
+    var clicked = false
 
     private var isFriend: Boolean? = null
 

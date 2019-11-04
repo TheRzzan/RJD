@@ -23,7 +23,7 @@
     <!-- Icons -->
     <dimen name="icon_size">46dp</dimen>
     <dimen name="big_icon_size">56dp</dimen>
-    <dimen name="small_icon_size">24dp</dimen>
+    <dimen name="small_icon_size">44dp</dimen>
 
     <!-- Image -->
     <dimen name="contact_photo_size">48dp</dimen>

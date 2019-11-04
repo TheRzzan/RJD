@@ -79,6 +79,9 @@ class ContactsFragment: MvpAppCompatFragment(), ContactsView {
 
         adapter = ContactsAdapter(object : OnItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
+                if (mPresenter.clicked)
+                    mPresenter.buttonAddClicked()
+                
                 if (view != null)
                     mActivityPresenter.showEditor(view as ImageView, mPresenter.getGeneralPosition(position))
                 else
