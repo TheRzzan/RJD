@@ -21,13 +21,14 @@
     <dimen name="text_small_secondary_size">11dp</dimen>
 
     <!-- Icons -->
-    <dimen name="icon_size">40dp</dimen>
+    <dimen name="icon_size">46dp</dimen>
     <dimen name="big_icon_size">56dp</dimen>
     <dimen name="small_icon_size">24dp</dimen>
 
     <!-- Image -->
     <dimen name="contact_photo_size">48dp</dimen>
     <dimen name="contact_photo_big_size">128dp</dimen>
+    <dimen name="image_size">64dp</dimen>
 
     <!-- Card View -->
     <dimen name="card_corner_radius">8dp</dimen>

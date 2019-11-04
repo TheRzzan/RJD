@@ -24,7 +24,8 @@
                 android:layout_toStartOf="@+id/buttonCheck"
                 android:id="@+id/textHeader"
                 android:gravity="center"
-                android:text="Изменение контакта"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="Добавить друга"
                 style="@style/TextView.Primary.Header"/>
 
         <Button
@@ -36,13 +37,21 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:id="@+id/buttonCheck" android:visibility="invisible"/>
+                android:id="@+id/buttonCheck" android:visibility="visible"/>
+        
+        <View
+                android:id="@+id/lineSeparator"
+                android:layout_below="@+id/textHeader"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
 
         <RelativeLayout
                 android:id="@+id/cardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textHeader"
+                android:layout_below="@+id/lineSeparator"
                 android:layout_centerHorizontal="true"
                 android:background="#00000000"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -57,35 +66,20 @@
                     android:layout_height="@dimen/contact_photo_big_size"
                     android:src="@color/colorPrimary"/>
 
-            <TextView
-                    android:textSize="@dimen/text_super_header_size"
+            <ImageView
+                    android:id="@+id/imageCamera"
                     android:layout_centerInParent="true"
-                    android:text="A"
-                    android:textColor="@android:color/white"
-                    style="@style/TextView.Primary.Header" android:id="@+id/textLetter"/>
+                    android:src="@drawable/ic_photo_camera"
+                    android:layout_width="@dimen/image_size"
+                    android:layout_height="@dimen/image_size"/>
         </RelativeLayout>
 
-        <TextView
-                android:id="@+id/textAddPhoto"
-                android:layout_marginTop="@dimen/activity_short_vertical_margin"
-                android:layout_centerHorizontal="true"
-                android:text="Добавить фото"
-                android:layout_below="@+id/cardView"
-                style="@style/TextView.Secondary"/>
-
-        <View
-                android:id="@+id/viewSeparator"
-                android:layout_below="@+id/textAddPhoto"
-                android:layout_marginTop="@dimen/activity_short_vertical_margin"
-                android:background="@color/grey_color"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"/>
-
         <LinearLayout
-                android:layout_below="@+id/viewSeparator"
+                android:layout_below="@+id/cardView"
+                android:layout_marginTop="@dimen/activity_long_vertical_margin"
                 android:orientation="vertical"
-                android:layout_marginStart="@dimen/activity_short_vertical_margin"
-                android:layout_marginEnd="@dimen/activity_short_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -124,26 +118,26 @@
                     android:id="@+id/editWorkPhone"/>
 
             <RelativeLayout
-                    android:layout_gravity="center"
                     android:id="@+id/relativeDayMonthYear"
+                    android:layout_marginTop="@dimen/activity_long_vertical_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                <TextView
-                        android:layout_centerVertical="true"
-                        android:id="@+id/textDayMonthYear"
-                        android:text="ДД.ММ.ГГГГ"
-                        android:textStyle="bold"
-                        style="@style/TextView.Secondary"
-                        android:textColor="@color/secondary_text"
-                        android:layout_marginEnd="8dp"/>
-
                 <ImageView
+                        android:id="@+id/imageCalendar"
+                        android:layout_marginEnd="@dimen/activity_short_horizontal_margin"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/textDayMonthYear"
                         android:src="@drawable/ic_calendar"
                         android:layout_width="@dimen/small_icon_size"
                         android:layout_height="@dimen/small_icon_size"/>
+
+                <TextView
+                        android:layout_toEndOf="@+id/imageCalendar"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/textDayMonthYear"
+                        android:text="Дата рождения"
+                        style="@style/TextView.Secondary"
+                        android:textColor="@color/secondary_text"/>
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

@@ -202,6 +202,8 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
     *
     * */
     override fun prepareForFriend() {
+        textHeader.text = "Добавить друга"
+
         editPosition.visibility = View.GONE
         editWorkPhone.visibility = View.GONE
         relativeDayMonthYear.visibility = View.VISIBLE
@@ -210,6 +212,8 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
     }
 
     override fun prepareForColleague() {
+        textHeader.text = "Добавить коллегу"
+
         editPosition.visibility = View.VISIBLE
         editWorkPhone.visibility = View.VISIBLE
         relativeDayMonthYear.visibility = View.GONE
@@ -225,12 +229,10 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
             val imageStream = activity?.contentResolver?.openInputStream(imageUri)
             val selectedImage = BitmapFactory.decodeStream(imageStream)
             imageCard.setImageBitmap(Bitmap.createScaledBitmap(selectedImage, 260, 260, false))
-            textLetter.visibility = View.GONE
+            imageCamera.visibility = View.GONE
             imageStream?.close()
-        }
-
-        if (contactModel.name.isNotEmpty())
-            textLetter.text = contactModel.name[0].toString()
+        } else
+            imageCamera.visibility = View.VISIBLE
 
         editName.setText(contactModel.name)
         editFamily.setText(contactModel.family)
@@ -264,7 +266,7 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
                 imageCard.setImageBitmap(Bitmap.createScaledBitmap(selectedImage, 120, 120, false))
                 verifyIsReadyToSave()
                 mContactModel.photo = imageUri
-                textLetter.visibility = View.GONE
+                imageCamera.visibility = View.GONE
                 imageStream?.close()
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
