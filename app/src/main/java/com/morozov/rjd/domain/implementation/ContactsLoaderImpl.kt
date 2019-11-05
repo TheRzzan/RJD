@@ -42,7 +42,8 @@ class ContactsLoaderImpl(private val context: Context): ContactsLoader, Contacts
         data.add(contact)
         val dbHelper = ContactsDBHelper(context)
         dbHelper.addContact(contact)
-        ContactsPhoneHelper.saveNewContact(context, contact)
+        if (contact.saveInDevice)
+            ContactsPhoneHelper.saveNewContact(context, contact)
     }
 
     override fun overwriteOld(contact: ContactModel, pos: Int) {
@@ -52,7 +53,8 @@ class ContactsLoaderImpl(private val context: Context): ContactsLoader, Contacts
         val dbHelper = ContactsDBHelper(context)
         dbHelper.removeItemWithPhone(contactModelOld.phoneNum)
         dbHelper.addContact(contact)
-        ContactsPhoneHelper.overwriteOldContact(context, contactModelOld, contact)
+        if (contact.saveInDevice)
+            ContactsPhoneHelper.overwriteOldContact(context, contactModelOld, contact)
     }
 
     override fun deleteThink(contact: ContactModel, pos: Int) {

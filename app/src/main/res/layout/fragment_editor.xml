@@ -122,6 +122,7 @@
             <RelativeLayout
                     android:id="@+id/relativeDayMonthYear"
                     android:layout_marginTop="@dimen/activity_long_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_long_vertical_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -141,6 +142,15 @@
                         style="@style/TextView.Secondary"
                         android:textColor="@color/secondary_text"/>
             </RelativeLayout>
+
+            <CheckBox
+
+                    android:text="Сохранять на устройстве"
+                    android:buttonTint="@color/colorPrimary"
+                    style="@style/TextView.Secondary"
+                    android:textColor="@color/secondary_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/checkBoxSave"/>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

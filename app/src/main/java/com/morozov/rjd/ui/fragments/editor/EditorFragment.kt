@@ -12,6 +12,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
@@ -83,6 +84,7 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
         when (val pos = bundle.getInt(AppConstants.CONTACT_POSITION, AppConstants.ANY_SELECTED_INT)) {
             AppConstants.ANY_SELECTED_INT -> {
                 buttonCheck.setOnClickListener {
+                    mContactModel.saveInDevice = checkBoxSave.isChecked
                     mPresenter.saveNew(mContactModel)
                     mActivityPresenter.showContacts()
                 }
@@ -94,12 +96,15 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
             }
             else -> {
                 buttonCheck.setOnClickListener {
+                    mContactModel.saveInDevice = checkBoxSave.isChecked
                     mPresenter.overwriteOld(mContactModel, pos)
                     mActivityPresenter.showContacts()
                 }
                 mPresenter.loadContact(pos)
             }
         }
+
+        checkBoxSave.setOnCheckedChangeListener { _, _ -> verifyIsReadyToSave()}
 
         isDateSelected.observeForever {
             verifyIsReadyToSave()
@@ -222,6 +227,8 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
     }
 
     override fun showContact(contactModel: ContactModel) {
+        checkBoxSave.isChecked = contactModel.saveInDevice
+
         mContactModel.photo = contactModel.photo
 
         if (contactModel.photo != null) {
