@@ -6,6 +6,7 @@ import com.morozov.rjd.domain.interfaces.ContactsLoader
 import com.morozov.rjd.domain.interfaces.ContactsSaver
 import com.morozov.rjd.mvp.models.ContactModel
 import com.morozov.rjd.utility.ContactsDBHelper
+import com.morozov.rjd.utility.ContactsPhoneHelper
 
 class ContactsLoaderImpl(private val context: Context): ContactsLoader, ContactsSaver, ContactsDeleter {
 
@@ -41,6 +42,7 @@ class ContactsLoaderImpl(private val context: Context): ContactsLoader, Contacts
         data.add(contact)
         val dbHelper = ContactsDBHelper(context)
         dbHelper.addContact(contact)
+        ContactsPhoneHelper.saveNewContact(context, contact)
     }
 
     override fun overwriteOld(contact: ContactModel, pos: Int) {
