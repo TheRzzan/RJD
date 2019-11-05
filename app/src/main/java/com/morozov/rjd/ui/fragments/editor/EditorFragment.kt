@@ -4,15 +4,17 @@ import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
@@ -102,6 +104,12 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
                 }
                 mPresenter.loadContact(pos)
             }
+        }
+
+        buttonLoadContact.setOnClickListener {
+            val i = Intent(Intent.ACTION_PICK)
+            i.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+            startActivityForResult(i, 1)
         }
 
         checkBoxSave.setOnCheckedChangeListener { _, _ -> verifyIsReadyToSave()}
@@ -265,9 +273,35 @@ class EditorFragment: MvpAppCompatFragment(), EditorView {
     override fun onActivityResult(reqCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(reqCode, resultCode, data)
 
-        if (resultCode == RESULT_OK) {
+        if (reqCode == 1 && resultCode == RESULT_OK) {
+            val contactUri = data?.data
+            val cursor = context?.contentResolver?.query(contactUri, null, null, null, null)
+
+            if (cursor != null && cursor.moveToFirst()) {
+                val numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                val number = cursor.getString(numberIndex)
+
+                val nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                val name = cursor.getString(nameIndex)
+
+                /*val familyIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME)
+                val family = cursor.getString(familyIndex)
+
+                val surnameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME)
+                val surname = cursor.getString(surnameIndex)*/
+
+                editPhone.setText(number)
+                editName.setText(name)
+                editFamily.setText("")
+                editSurname.setText("")
+
+                checkBoxSave.isChecked = true
+            }
+
+            cursor?.close()
+        } else if (reqCode == 0 && resultCode == RESULT_OK) {
             try {
-                val imageUri = data!!.data
+                val imageUri = data?.data
                 val imageStream = activity?.contentResolver?.openInputStream(imageUri)
                 val selectedImage = BitmapFactory.decodeStream(imageStream)
                 imageCard.setImageBitmap(Bitmap.createBitmap(selectedImage))
