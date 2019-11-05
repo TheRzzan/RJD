@@ -108,8 +108,27 @@ object ContactsPhoneHelper {
         return isSuccess
     }
 
-    fun overwriteOldContact(context: Context, contact: ContactModel) {
+    fun overwriteOldContact(context: Context, oldContact: ContactModel, newContact: ContactModel): Boolean {
+        val ops = mutableListOf<ContentProviderOperation>()
 
+        val where = ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME + "=?"
+
+        val params = arrayOf(
+            "${oldContact.family} ${oldContact.name} ${oldContact.surname}"
+        )
+        ops.add(
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI)
+                .withSelection(where, params)
+                .build()
+        )
+        return try {
+            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, ArrayList(ops))
+            saveNewContact(context, newContact)
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
     fun deleteContact(context: Context, contact: ContactModel) {
